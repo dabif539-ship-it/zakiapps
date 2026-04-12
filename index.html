@@ -1,34 +1,49 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
+<html lang="ar" dir="rtl"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Zaki Apps | مدير التطبيقات</title>
+    <title>Zaki Apps | حفظ الصفحة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
+
         body {
             background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
             min-height: 100vh;
             padding: 2rem 1.5rem;
         }
-        .container { max-width: 1400px; margin: 0 auto; }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         .hero {
             background: white;
             border-radius: 60px;
             padding: 2rem 2.5rem;
             margin-bottom: 3rem;
             text-align: center;
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
         }
+
+        body.dark-mode .hero {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -38,15 +53,45 @@
             height: 4px;
             background: linear-gradient(90deg, #111, #2e7d32, #111);
         }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .za-logo {
+            width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+            transition: transform 0.3s ease;
+        }
+
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
             background: linear-gradient(135deg, #111, #2e7d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .hero p { color: #666; margin-top: 10px; }
+
+        body.dark-mode .hero h1 {
+            background: linear-gradient(135deg, #fff, #4caf50);
+        }
+
+        .hero p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        body.dark-mode .hero p {
+            color: rgba(255,255,255,0.7);
+        }
+
         .tabs {
             display: flex;
             justify-content: center;
@@ -54,6 +99,7 @@
             flex-wrap: wrap;
             margin-bottom: 3rem;
         }
+
         .tab-btn {
             background: white;
             border: 1px solid #e0e0e0;
@@ -67,20 +113,50 @@
             align-items: center;
             gap: 12px;
             color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-        .tab-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .tab-btn.active { background: #111; color: white; border-color: #111; }
-        .tab-content { display: none; animation: fadeUp 0.5s ease; }
-        .tab-content.active-content { display: block; }
+
+        body.dark-mode .tab-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn.active {
+            background: #111;
+            color: white;
+            border-color: #111;
+        }
+
+        body.dark-mode .tab-btn.active {
+            background: linear-gradient(135deg, #2e7d32, #1a5a1e);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.5s ease;
+        }
+
+        .tab-content.active-content {
+            display: block;
+        }
+
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
         }
+
         .app-card {
             background: white;
             border-radius: 32px;
@@ -88,9 +164,17 @@
             transition: all 0.4s;
             box-shadow: 0 15px 35px -15px rgba(0,0,0,0.1);
             border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
             position: relative;
             overflow: hidden;
         }
+
+        body.dark-mode .app-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
         .app-card::before {
             content: '';
             position: absolute;
@@ -102,8 +186,16 @@
             transform: scaleX(0);
             transition: transform 0.4s;
         }
-        .app-card:hover::before { transform: scaleX(1); }
-        .app-card:hover { transform: translateY(-10px); box-shadow: 0 30px 50px -20px rgba(0,0,0,0.2); }
+
+        .app-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.2);
+        }
+
         .card-img {
             width: 100%;
             height: 180px;
@@ -112,9 +204,36 @@
             background: #f0f0f0;
             margin-bottom: 1.2rem;
         }
-        .card-title { font-size: 1.6rem; font-weight: 800; color: #111; margin-bottom: 0.5rem; }
-        .card-desc { color: #666; line-height: 1.6; margin-bottom: 1rem; }
-        .platform-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .card-title {
+            color: white;
+        }
+
+        .card-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        body.dark-mode .card-desc {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .platform-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
         .platform-badge {
             display: inline-flex;
             align-items: center;
@@ -124,8 +243,19 @@
             font-size: 0.7rem;
             font-weight: 700;
         }
-        .platform-badge.android { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-        .platform-badge.windows { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdef5; }
+
+        .platform-badge.android {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .platform-badge.windows {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #bbdef5;
+        }
+
         .download-btn {
             display: inline-flex;
             align-items: center;
@@ -134,123 +264,23 @@
             color: white;
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
+            text-decoration: none;
             font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
+            width: fit-content;
             transition: all 0.3s;
+            margin-top: 0.5rem;
         }
-        .download-btn:hover { gap: 15px; background: #2e7d32; transform: scale(1.02); }
-        .admin-controls {
-            display: flex;
-            gap: 12px;
-            margin-top: 1rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #eee;
+
+        body.dark-mode .download-btn {
+            background: #2e7d32;
         }
-        .edit-btn, .delete-btn {
-            border: 1px solid #ddd;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.8rem;
-            background: #f8f8f8;
-            color: #333;
-        }
-        .edit-btn:hover { background: #111; color: white; }
-        .delete-btn:hover { background: #d32f2f; color: white; }
-        .admin-panel {
-            background: white;
-            border-radius: 48px;
-            padding: 2rem;
-            margin-top: 3rem;
-            box-shadow: 0 25px 50px -15px rgba(0,0,0,0.1);
-            border: 1px solid #e0e0e0;
-            display: none;
-        }
-        .admin-panel.show { display: block; }
-        .admin-panel h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid #eee;
-            color: #111;
-        }
-        .form-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; }
-        .form-group { flex: 1; min-width: 180px; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: #333; }
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 18px;
-            border-radius: 30px;
-            border: 1px solid #ddd;
-            background: #fafafa;
-            font-size: 0.95rem;
-        }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #2e7d32; }
-        .upload-area {
-            border: 2px dashed #ddd;
-            border-radius: 30px;
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #fafafa;
-        }
-        .upload-area:hover { border-color: #2e7d32; background: #f0fdf4; }
-        .upload-area i { font-size: 2rem; color: #999; margin-bottom: 8px; }
-        .upload-area p { color: #666; font-size: 0.8rem; }
-        .file-info { margin-top: 8px; font-size: 0.75rem; color: #2e7d32; }
-        .image-preview { margin-top: 12px; display: flex; justify-content: center; }
-        .image-preview img { max-width: 100%; max-height: 100px; border-radius: 16px; }
-        .btn-primary {
-            background: #111;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .btn-primary:hover { background: #2e7d32; }
-        .btn-save { background: #2e7d32; margin-right: 10px; }
-        .btn-save:hover { background: #1b5e20; }
-        .empty-message {
-            text-align: center;
-            padding: 3rem;
-            background: white;
-            border-radius: 32px;
-            color: #999;
-            border: 1px solid #eee;
-            grid-column: 1 / -1;
-        }
-        .support-box {
-            background: white;
-            border-radius: 48px;
-            padding: 2.5rem;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .email-card {
-            background: #f5f5f5;
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            margin: 1.5rem auto;
-            display: inline-flex;
+
+        .download-btn:hover {
             gap: 15px;
+            background: #2e7d32;
+            transform: scale(1.02);
         }
-        .email-card a { color: #111; text-decoration: none; font-weight: 700; }
-        .comment-form input, .comment-form textarea { width: 100%; margin-bottom: 10px; }
-        .comment-item {
-            background: #fafafa;
-            border-radius: 24px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            text-align: right;
-        }
+
         .admin-badge {
             position: fixed;
             bottom: 25px;
@@ -266,9 +296,269 @@
             font-weight: 700;
             border: none;
             z-index: 100;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-        .admin-badge:hover { background: #2e7d32; transform: scale(1.05); }
-        .footer-note { text-align: center; margin-top: 3rem; color: #999; font-size: 0.85rem; }
+
+        body.dark-mode .admin-badge {
+            background: #2e7d32;
+        }
+
+        .admin-badge:hover {
+            background: #2e7d32;
+            transform: scale(1.05);
+        }
+
+        .theme-switch {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #111;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            border: none;
+            z-index: 100;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        body.dark-mode .theme-switch {
+            background: #2e7d32;
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.05);
+        }
+
+        .admin-panel {
+            background: white;
+            border-radius: 48px;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 25px 50px -15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            display: none;
+        }
+
+        body.dark-mode .admin-panel {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .admin-panel.show {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #eee;
+            color: #111;
+        }
+
+        body.dark-mode .admin-panel h3 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        body.dark-mode .form-group label {
+            color: rgba(255,255,255,0.8);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+
+        /* منطقة رفع الملفات */
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 30px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .upload-area:hover {
+            border-color: #2e7d32;
+            background: rgba(46,125,50,0.05);
+        }
+
+        .upload-area i {
+            font-size: 2rem;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .upload-area p {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .file-info {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #2e7d32;
+            word-break: break-all;
+        }
+
+        .image-preview {
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: #111;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        body.dark-mode .btn-primary {
+            background: #2e7d32;
+        }
+
+        .btn-primary:hover {
+            background: #2e7d32;
+        }
+
+        .btn-save {
+            background: #2e7d32;
+            margin-right: 10px;
+        }
+
+        .btn-save:hover {
+            background: #1b5e20;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 32px;
+            color: #999;
+            border: 1px solid #eee;
+            grid-column: 1 / -1;
+        }
+
+        .support-box {
+            background: white;
+            border-radius: 48px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        body.dark-mode .support-box {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .email-card {
+            background: #f5f5f5;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            margin: 1.5rem auto;
+            display: inline-flex;
+            gap: 15px;
+        }
+
+        body.dark-mode .email-card {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .email-card a {
+            color: #111;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        body.dark-mode .email-card a {
+            color: white;
+        }
+
+        .comment-form input, .comment-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .comment-item {
+            background: #fafafa;
+            border-radius: 24px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+
+        body.dark-mode .comment-item {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        body.dark-mode .footer-note {
+            color: rgba(255,255,255,0.4);
+        }
+
         .toast-message {
             position: fixed;
             bottom: 100px;
@@ -280,10 +570,16 @@
             z-index: 1000;
             animation: slideIn 0.3s;
         }
+
+        body.dark-mode .toast-message {
+            background: #2e7d32;
+        }
+
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -297,6 +593,7 @@
             justify-content: center;
             z-index: 2000;
         }
+
         .login-modal {
             background: white;
             border-radius: 48px;
@@ -305,6 +602,12 @@
             max-width: 400px;
             width: 90%;
         }
+
+        body.dark-mode .login-modal {
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
         .login-modal input {
             width: 100%;
             padding: 14px;
@@ -313,6 +616,7 @@
             margin: 1rem 0;
             text-align: center;
         }
+
         .login-modal button {
             width: 100%;
             background: #111;
@@ -323,9 +627,16 @@
             font-weight: 700;
             cursor: pointer;
         }
+
+        body.dark-mode .login-modal button {
+            background: #2e7d32;
+        }
+
         @media (max-width: 700px) {
             body { padding: 1rem; }
             .hero h1 { font-size: 2rem; }
+            .za-logo { width: 50px; height: 50px; }
+            .tab-btn { padding: 0.6rem 1.3rem; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -333,28 +644,54 @@
 
 <div class="container">
     <div class="hero">
-        <h1>Zaki Apps</h1>
-        <p>📱 أضف تطبيقاتك وألعابك بنفسك | رفع صور وملفات من جهازك</p>
+        <div class="logo-container">
+            <svg class="za-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1"></stop>
+                        <stop offset="100%" style="stop-color:#2e7d32;stop-opacity:1"></stop>
+                    </linearGradient>
+                    <linearGradient id="logoGradB" x1="100%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#2e7d32;stop-opacity:1"></stop>
+                        <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1"></stop>
+                    </linearGradient>
+                </defs>
+                <polygon points="40,40 160,40 160,65 80,135 160,135 160,160 40,160 40,135 120,65 40,65" fill="url(#logoGrad)"></polygon>
+                <polygon points="100,55 130,135 70,135" fill="url(#logoGradB)" opacity="0.85"></polygon>
+                <polygon points="100,55 115,100 85,100" fill="white" opacity="0.25"></polygon>
+            </svg>
+            <h1>Zaki Apps</h1>
+        </div>
+        <p>📱 منصة تحميل التطبيقات والألعاب | أندرويد + ويندوز</p>
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" data-tab="apps">📱 تطبيقات</button>
-        <button class="tab-btn" data-tab="games">🎮 ألعاب</button>
-        <button class="tab-btn" data-tab="support">💬 دعم</button>
+        <button class="tab-btn active" data-tab="apps"><i class="fas fa-th-large"></i> تطبيقات</button>
+        <button class="tab-btn" data-tab="games"><i class="fas fa-gamepad"></i> ألعاب</button>
+        <button class="tab-btn" data-tab="support"><i class="fas fa-headset"></i> دعم</button>
     </div>
 
     <div id="apps" class="tab-content active-content">
-        <div class="cards-grid" id="appsContainer"></div>
+        <div class="cards-grid" id="appsContainer">
+            <div class="app-card">
+                <img class="card-img" src="data:image/jpeg;base64,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" alt="tikrar">
+                <div class="card-title">tikrar</div>
+                <div class="card-desc">تطبيق تكرار</div>
+                <div class="platform-badges"><span class="platform-badge android"><i class="fab fa-android"></i> أندرويد</span></div>
+                <button class="download-btn" onclick="downloadItem('app_1776020945388_mbcf0u','app')"><i class="fas fa-download"></i> تحميل مباشر</button>
+                <div class="admin-controls" style="display:flex; gap:10px; margin-top:1rem;"><button class="edit-btn" onclick="editItem('app','app_1776020945388_mbcf0u')" style="background:#f5f5f5; border:1px solid #ddd; padding:0.3rem 1rem; border-radius:30px; cursor:pointer;">✏️ تعديل</button><button class="delete-btn" onclick="deleteItem('app','app_1776020945388_mbcf0u')" style="background:#f5f5f5; border:1px solid #ddd; padding:0.3rem 1rem; border-radius:30px; cursor:pointer;">🗑️ حذف</button></div>
+            </div>
+        </div>
     </div>
 
     <div id="games" class="tab-content">
-        <div class="cards-grid" id="gamesContainer"></div>
+        <div class="cards-grid" id="gamesContainer"><div class="empty-message"><i class="fas fa-gamepad"></i><br>لا توجد ألعاب<br>اضغط "دخول المدير" لإضافة لعبة</div></div>
     </div>
 
     <div id="support" class="tab-content">
         <div class="support-box">
-            <i class="fas fa-envelope-open-text" style="font-size: 2.5rem;"></i>
-            <h2 style="margin: 0.5rem 0;">الدعم</h2>
+            <i class="fas fa-envelope-open-text"></i>
+            <h2 style="margin: 0.5rem 0;">مركز الدعم</h2>
             <div class="email-card">
                 <i class="fas fa-envelope"></i>
                 <a href="mailto:dabif539@gmail.com">dabif539@gmail.com</a>
@@ -366,13 +703,14 @@
                     <textarea id="commentText" rows="2" placeholder="اكتب تعليقك..."></textarea>
                     <button class="btn-primary" id="submitCommentBtn">إرسال</button>
                 </div>
-                <div id="commentsList"></div>
+                <div id="commentsList"><div style="color:#999; padding:1rem;">لا توجد تعليقات</div></div>
             </div>
         </div>
     </div>
 
-    <div class="admin-panel" id="adminPanel">
-        <h3>⚙️ لوحة التحكم - أضف تطبيقك الآن</h3>
+    <!-- لوحة التحكم -->
+    <div class="admin-panel show" id="adminPanel">
+        <h3><i class="fas fa-sliders-h"></i> لوحة التحكم</h3>
         <div class="form-row">
             <div class="form-group">
                 <label>النوع</label>
@@ -383,11 +721,11 @@
             </div>
             <div class="form-group">
                 <label>العنوان</label>
-                <input type="text" id="itemTitle" placeholder="مثال: برنامجي الرائع">
+                <input type="text" id="itemTitle" placeholder="الاسم">
             </div>
             <div class="form-group">
                 <label>الوصف</label>
-                <textarea id="itemDesc" rows="1" placeholder="وصف التطبيق"></textarea>
+                <textarea id="itemDesc" rows="1" placeholder="الوصف"></textarea>
             </div>
         </div>
         <div class="form-row">
@@ -402,7 +740,7 @@
         </div>
         <div class="form-row">
             <div class="form-group">
-                <label>📸 رفع صورة</label>
+                <label>📸 رفع صورة (اختياري)</label>
                 <div class="upload-area" id="imageUploadArea">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <p>اضغط لاختيار صورة</p>
@@ -411,13 +749,23 @@
                 <div class="image-preview" id="imagePreview"></div>
             </div>
             <div class="form-group">
-                <label>📦 رفع ملف التحميل (APK/EXE/ZIP)</label>
+                <label>📦 رفع ملف التحميل (اختياري)</label>
                 <div class="upload-area" id="fileUploadArea">
                     <i class="fas fa-file-upload"></i>
-                    <p>اضغط لرفع ملف التطبيق</p>
+                    <p>اضغط لرفع ملف APK/EXE/ZIP</p>
                     <input type="file" id="fileInput" accept="*/*" style="display: none;">
                 </div>
                 <div id="fileInfo" class="file-info"></div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>أو اكتب اسم ملف الصورة</label>
+                <input type="text" id="imageFileName" placeholder="مثال: apps/تطبيق1/icon.png">
+            </div>
+            <div class="form-group">
+                <label>أو اكتب اسم ملف التحميل</label>
+                <input type="text" id="fileFileName" placeholder="مثال: apps/تطبيق1/app.apk">
             </div>
         </div>
         <div style="display: flex; gap: 12px; justify-content: flex-end;">
@@ -429,12 +777,15 @@
     </div>
     
     <div class="footer-note">
-        <i class="fas fa-plus-circle"></i> اضغط "دخول المدير" ثم أضف تطبيقاتك | بعد الإضافة اضغط "حفظ الصفحة"
+        <i class="fas fa-save"></i> اضغط "حفظ الصفحة" لتحميل نسخة احتياطية | يمكنك رفع ملف أو كتابة اسمه
     </div>
 </div>
 
-<button class="admin-badge" id="adminLoginBtn">
-    <i class="fas fa-user-shield"></i> دخول المدير
+<button class="admin-badge" id="adminLoginBtn" style="background: rgb(46, 125, 50);"><i class="fas fa-user-check"></i> المدير نشط</button>
+
+<button class="theme-switch" id="themeSwitch">
+    <i class="fas fa-moon"></i>
+    <span id="themeText">الوضع الداكن</span>
 </button>
 
 <script>
@@ -471,6 +822,17 @@
         if(!appsData) appsData = [];
         if(!gamesData) gamesData = [];
         if(!commentsData) commentsData = [];
+        
+        if(appsData.length === 0 && gamesData.length === 0) {
+            appsData = [
+                { id: "app1", title: "Zaki Cleaner", desc: "منظف هاتف احترافي", platform: "android", imageFile: "https://picsum.photos/id/104/350/200", fileFile: "#", type: "app" },
+                { id: "app2", title: "Zaki Studio", desc: "برنامج تصميم للويندوز", platform: "windows", imageFile: "https://picsum.photos/id/0/350/200", fileFile: "#", type: "app" }
+            ];
+            gamesData = [
+                { id: "game1", title: "Speed Racer", desc: "لعبة سباق سيارات", platform: "android", imageFile: "https://picsum.photos/id/106/350/200", fileFile: "#", type: "game" }
+            ];
+            saveToLocalStorage();
+        }
     }
 
     function saveFullPage() {
@@ -484,7 +846,7 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('✅ تم حفظ الصفحة بنجاح!');
+        showToast('✅ تم حفظ الصفحة بنجاح! الملف جاهز للتحميل');
     }
 
     function triggerDownload(fileData, filename) {
@@ -495,7 +857,9 @@
         try {
             const byteCharacters = atob(fileData.data);
             const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) byteNumbers[i] = byteCharacters.charCodeAt(i);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
             const byteArray = new Uint8Array(byteNumbers);
             const blob = new Blob([byteArray], { type: fileData.type || 'application/octet-stream' });
             const url = URL.createObjectURL(blob);
@@ -507,7 +871,9 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             showToast(`جاري تحميل ${filename}`);
-        } catch(e) { alert("خطأ في التحميل"); }
+        } catch(e) {
+            alert("خطأ في التحميل");
+        }
     }
 
     function renderComments() {
@@ -559,6 +925,12 @@
     function getImageHtml(item) {
         if(item.imageData) {
             return `<img class="card-img" src="${item.imageData}" alt="${escapeHtml(item.title)}">`;
+        } else if(item.imageFile) {
+            if(item.imageFile.startsWith('http')) {
+                return `<img class="card-img" src="${item.imageFile}" onerror="this.src='https://picsum.photos/id/20/350/200'">`;
+            } else {
+                return `<img class="card-img" src="${item.imageFile}" onerror="this.src='https://picsum.photos/id/20/350/200'">`;
+            }
         } else {
             const icon = item.type === 'app' ? 'fa-mobile-alt' : 'fa-gamepad';
             return `<div class="card-img" style="background:#f0f0f0; display:flex; align-items:center; justify-content:center;"><i class="fas ${icon}" style="font-size:3rem; color:#aaa;"></i></div>`;
@@ -574,24 +946,17 @@
         const container = document.getElementById('appsContainer');
         if(!container) return;
         if(appsData.length === 0) {
-            container.innerHTML = `<div class="empty-message"><i class="fas fa-folder-open"></i><br>📭 لا توجد تطبيقات<br>👆 اضغط "دخول المدير" ثم أضف تطبيقك الأول</div>`;
+            container.innerHTML = `<div class="empty-message"><i class="fas fa-folder-open"></i><br>لا توجد تطبيقات<br>اضغط "دخول المدير" لإضافة تطبيق</div>`;
             return;
         }
         container.innerHTML = appsData.map(app => `
             <div class="app-card">
                 ${getImageHtml(app)}
                 <div class="card-title">${escapeHtml(app.title)}</div>
-                <div class="card-desc">${escapeHtml(app.description)}</div>
+                <div class="card-desc">${escapeHtml(app.desc)}</div>
                 <div class="platform-badges">${getPlatformBadges(app.platform)}</div>
-                <button class="download-btn" onclick="downloadItem('${app.id}','app')">
-                    <i class="fas fa-download"></i> تحميل مباشر
-                </button>
-                ${isAdmin ? `
-                    <div class="admin-controls">
-                        <button class="edit-btn" onclick="editItem('app','${app.id}')">✏️ تعديل</button>
-                        <button class="delete-btn" onclick="deleteItem('app','${app.id}')">🗑️ حذف</button>
-                    </div>
-                ` : ''}
+                ${app.fileData ? `<button class="download-btn" onclick="downloadItem('${app.id}','app')"><i class="fas fa-download"></i> تحميل مباشر</button>` : `<a href="${app.fileFile}" class="download-btn" download><i class="fas fa-download"></i> تحميل</a>`}
+                ${isAdmin ? `<div class="admin-controls" style="display:flex; gap:10px; margin-top:1rem;"><button class="edit-btn" onclick="editItem('app','${app.id}')" style="background:#f5f5f5; border:1px solid #ddd; padding:0.3rem 1rem; border-radius:30px; cursor:pointer;">✏️ تعديل</button><button class="delete-btn" onclick="deleteItem('app','${app.id}')" style="background:#f5f5f5; border:1px solid #ddd; padding:0.3rem 1rem; border-radius:30px; cursor:pointer;">🗑️ حذف</button></div>` : ''}
             </div>
         `).join('');
     }
@@ -600,24 +965,17 @@
         const container = document.getElementById('gamesContainer');
         if(!container) return;
         if(gamesData.length === 0) {
-            container.innerHTML = `<div class="empty-message"><i class="fas fa-gamepad"></i><br>🎮 لا توجد ألعاب<br>👆 اضغط "دخول المدير" ثم أضف لعبتك الأولى</div>`;
+            container.innerHTML = `<div class="empty-message"><i class="fas fa-gamepad"></i><br>لا توجد ألعاب<br>اضغط "دخول المدير" لإضافة لعبة</div>`;
             return;
         }
         container.innerHTML = gamesData.map(game => `
             <div class="app-card">
                 ${getImageHtml(game)}
                 <div class="card-title">${escapeHtml(game.title)}</div>
-                <div class="card-desc">${escapeHtml(game.description)}</div>
+                <div class="card-desc">${escapeHtml(game.desc)}</div>
                 <div class="platform-badges">${getPlatformBadges(game.platform)}</div>
-                <button class="download-btn" onclick="downloadItem('${game.id}','game')">
-                    <i class="fas fa-download"></i> تحميل مباشر
-                </button>
-                ${isAdmin ? `
-                    <div class="admin-controls">
-                        <button class="edit-btn" onclick="editItem('game','${game.id}')">✏️ تعديل</button>
-                        <button class="delete-btn" onclick="deleteItem('game','${game.id}')">🗑️ حذف</button>
-                    </div>
-                ` : ''}
+                ${game.fileData ? `<button class="download-btn" onclick="downloadItem('${game.id}','game')"><i class="fas fa-download"></i> تحميل مباشر</button>` : `<a href="${game.fileFile}" class="download-btn" download><i class="fas fa-download"></i> تحميل</a>`}
+                ${isAdmin ? `<div class="admin-controls" style="display:flex; gap:10px; margin-top:1rem;"><button class="edit-btn" onclick="editItem('game','${game.id}')" style="background:#f5f5f5; border:1px solid #ddd; padding:0.3rem 1rem; border-radius:30px; cursor:pointer;">✏️ تعديل</button><button class="delete-btn" onclick="deleteItem('game','${game.id}')" style="background:#f5f5f5; border:1px solid #ddd; padding:0.3rem 1rem; border-radius:30px; cursor:pointer;">🗑️ حذف</button></div>` : ''}
             </div>
         `).join('');
     }
@@ -626,8 +984,6 @@
         let item = type === 'app' ? appsData.find(a => a.id === id) : gamesData.find(g => g.id === id);
         if(item && item.fileData) {
             triggerDownload(item.fileData, `${item.title}.${item.fileData.name.split('.').pop() || 'file'}`);
-        } else {
-            alert("⚠️ لا يوجد ملف مرفق لهذا المحتوى");
         }
     };
 
@@ -636,8 +992,10 @@
         if(!item) return;
         document.getElementById('itemType').value = type;
         document.getElementById('itemTitle').value = item.title;
-        document.getElementById('itemDesc').value = item.description;
+        document.getElementById('itemDesc').value = item.desc;
         document.getElementById('itemPlatform').value = item.platform;
+        document.getElementById('imageFileName').value = item.imageFile || '';
+        document.getElementById('fileFileName').value = item.fileFile || '';
         if(item.imageData) {
             document.getElementById('imagePreview').innerHTML = `<img src="${item.imageData}">`;
             currentImageData = item.imageData;
@@ -647,7 +1005,7 @@
             currentFileData = item.fileData;
         }
         currentEditingItem = { id, type };
-        document.getElementById('addItemBtn').innerHTML = '💾 تحديث';
+        document.getElementById('addItemBtn').innerHTML = '<i class="fas fa-save"></i> تحديث';
         document.getElementById('cancelEditBtn').style.display = 'inline-flex';
     };
 
@@ -671,6 +1029,8 @@
         document.getElementById('cancelEditBtn').style.display = 'none';
         document.getElementById('itemTitle').value = '';
         document.getElementById('itemDesc').value = '';
+        document.getElementById('imageFileName').value = '';
+        document.getElementById('fileFileName').value = '';
         document.getElementById('imagePreview').innerHTML = '';
         document.getElementById('fileInfo').innerHTML = '';
         document.getElementById('formFeedback').innerHTML = '';
@@ -683,29 +1043,38 @@
         const title = document.getElementById('itemTitle').value.trim();
         const desc = document.getElementById('itemDesc').value.trim();
         const platform = document.getElementById('itemPlatform').value;
-        
+        const imageFileName = document.getElementById('imageFileName').value.trim();
+        const fileFileName = document.getElementById('fileFileName').value.trim();
+
         if(!title || !desc) {
             document.getElementById('formFeedback').innerHTML = '⚠️ العنوان والوصف مطلوبة';
             return;
         }
-        
-        if(!currentFileData && !currentEditingItem) {
-            document.getElementById('formFeedback').innerHTML = '⚠️ الرجاء رفع ملف التحميل';
+
+        if(!imageFileName && !currentImageData && !currentEditingItem?.imageData && !currentEditingItem?.imageFile) {
+            document.getElementById('formFeedback').innerHTML = '⚠️ الرجاء إضافة صورة (رفع أو كتابة اسم)';
             return;
         }
-        
+
+        if(!fileFileName && !currentFileData && !currentEditingItem?.fileData && !currentEditingItem?.fileFile) {
+            document.getElementById('formFeedback').innerHTML = '⚠️ الرجاء إضافة ملف التحميل (رفع أو كتابة اسم)';
+            return;
+        }
+
         if(currentEditingItem) {
             const { id, type: oldType } = currentEditingItem;
-            const finalFile = currentFileData || (oldType === 'app' ? appsData.find(i=>i.id===id)?.fileData : gamesData.find(i=>i.id===id)?.fileData);
-            const finalImage = currentImageData || (oldType === 'app' ? appsData.find(i=>i.id===id)?.imageData : gamesData.find(i=>i.id===id)?.imageData);
+            const finalImageData = currentImageData || (oldType === 'app' ? appsData.find(i=>i.id===id)?.imageData : gamesData.find(i=>i.id===id)?.imageData);
+            const finalFileData = currentFileData || (oldType === 'app' ? appsData.find(i=>i.id===id)?.fileData : gamesData.find(i=>i.id===id)?.fileData);
+            const finalImageFile = imageFileName || (oldType === 'app' ? appsData.find(i=>i.id===id)?.imageFile : gamesData.find(i=>i.id===id)?.imageFile);
+            const finalFileFile = fileFileName || (oldType === 'app' ? appsData.find(i=>i.id===id)?.fileFile : gamesData.find(i=>i.id===id)?.fileFile);
             
             if(oldType === 'app') {
                 const idx = appsData.findIndex(i => i.id === id);
-                if(idx !== -1) appsData[idx] = { ...appsData[idx], title, description: desc, platform, imageData: finalImage, fileData: finalFile };
+                if(idx !== -1) appsData[idx] = { ...appsData[idx], title, desc, platform, imageData: finalImageData, fileData: finalFileData, imageFile: finalImageFile, fileFile: finalFileFile };
                 renderApps();
             } else {
                 const idx = gamesData.findIndex(i => i.id === id);
-                if(idx !== -1) gamesData[idx] = { ...gamesData[idx], title, description: desc, platform, imageData: finalImage, fileData: finalFile };
+                if(idx !== -1) gamesData[idx] = { ...gamesData[idx], title, desc, platform, imageData: finalImageData, fileData: finalFileData, imageFile: finalImageFile, fileFile: finalFileFile };
                 renderGames();
             }
             saveToLocalStorage();
@@ -713,13 +1082,23 @@
             resetEditMode();
         } else {
             const newId = `${type}_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
-            const newItem = { id: newId, title, description: desc, platform, imageData: currentImageData, fileData: currentFileData, type };
+            const newItem = { 
+                id: newId, 
+                title, 
+                desc, 
+                platform, 
+                imageData: currentImageData, 
+                fileData: currentFileData, 
+                imageFile: imageFileName, 
+                fileFile: fileFileName, 
+                type 
+            };
             if(type === 'app') appsData.push(newItem);
             else gamesData.push(newItem);
             renderApps();
             renderGames();
             saveToLocalStorage();
-            showToast('✅ تمت الإضافة بنجاح!');
+            showToast('تمت الإضافة');
             resetEditMode();
         }
     }
@@ -800,6 +1179,41 @@
         };
     }
 
+    function initTheme() {
+        const savedTheme = localStorage.getItem('zaki_theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            updateThemeButton(true);
+        } else {
+            document.body.classList.remove('dark-mode');
+            updateThemeButton(false);
+        }
+    }
+
+    function updateThemeButton(isDark) {
+        const themeBtn = document.getElementById('themeSwitch');
+        const themeText = document.getElementById('themeText');
+        const themeIcon = themeBtn.querySelector('i');
+        
+        if (isDark) {
+            themeIcon.className = 'fas fa-sun';
+            themeText.innerText = 'الوضع الساطع';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            themeText.innerText = 'الوضع الداكن';
+        }
+    }
+
+    function toggleTheme() {
+        const isDark = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('zaki_theme', isDark ? 'dark' : 'light');
+        updateThemeButton(isDark);
+        showToast(isDark ? '🌙 تم التبديل إلى الوضع الداكن' : '☀️ تم التبديل إلى الوضع الساطع');
+    }
+
+    document.getElementById('themeSwitch').addEventListener('click', toggleTheme);
+    initTheme();
+
     loadFromLocalStorage();
     renderApps();
     renderGames();
@@ -819,5 +1233,5 @@
         }
     };
 </script>
-</body>
-</html>
+
+<div class="toast-message"><i class="fas fa-check-circle"></i> تمت الإضافة</div></body></html>
