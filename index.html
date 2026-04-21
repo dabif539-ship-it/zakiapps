@@ -4,291 +4,556 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     
-    <!-- SEO - لظهور الموقع في البحث -->
-    <title>Zaki Apps - تحميل تطبيقات وألعاب</title>
-    <meta name="description" content="منصة Zaki Apps لتحميل التطبيقات والألعاب لأندرويد وويندوز. اكتشف أفضل التطبيقات والألعاب مجاناً.">
-    <meta name="keywords" content="Zaki Apps, تحميل تطبيقات, العاب, أندرويد, ويندوز">
+    <title>Zaki Apps | تجربة 3D احترافية</title>
+    <meta name="description" content="منصة Zaki Apps لتحميل التطبيقات والألعاب بأسلوب ثلاثي الأبعاد">
+    <meta name="keywords" content="Zaki Apps, 3D, تحميل تطبيقات, العاب, أندرويد, ويندوز">
     <meta name="author" content="Zaki">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         /* الوضع الفاتح (افتراضي) */
         body {
             background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
             min-height: 100vh;
-            padding: 2rem 1.5rem;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.3s ease;
         }
 
         /* الوضع الداكن */
         body.dark-mode {
-            background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #16213e 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
         }
 
-        .container { max-width: 1400px; margin: 0 auto; }
-        
+        /* تأثير الجسيمات */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite ease-in-out;
+        }
+
+        body.dark-mode .particle {
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* هيدر 3D */
         .hero {
             background: white;
-            border-radius: 60px;
+            border-radius: 70px;
             padding: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             text-align: center;
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
         }
+
         body.dark-mode .hero {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.05);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.3);
         }
-        
-        .za-logo-3d { width: 70px; height: 70px; }
-        
+
+        .hero:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 55px -15px rgba(76,175,80,0.2);
+        }
+
+        /* شعار 3D */
+        .logo-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .za-logo-3d {
+            width: 85px;
+            height: 85px;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.15));
+            transition: all 0.4s;
+            animation: logoGlow 3s infinite;
+        }
+
+        body.dark-mode .za-logo-3d {
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3));
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 10px 25px rgba(76,175,80,0.2)); }
+            50% { filter: drop-shadow(0 15px 35px rgba(76,175,80,0.5)); }
+        }
+
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 900;
             background: linear-gradient(135deg, #111, #2e7d32);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
+
         body.dark-mode .hero h1 {
-            background: linear-gradient(135deg, #4caf50, #ffffff);
+            background: linear-gradient(135deg, #ffffff, #4caf50, #a78bfa);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
+
+        .hero p {
+            color: #666;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        body.dark-mode .hero p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* إحصائيات متحركة */
         .stats {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
         }
+
         .stat-card {
             background: #f5f5f5;
-            border-radius: 50px;
-            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            padding: 0.7rem 1.8rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
         }
-        body.dark-mode .stat-card { background: rgba(255,255,255,0.05); }
-        .stat-number { font-size: 1.5rem; font-weight: 800; color: #2e7d32; }
-        body.dark-mode .stat-number { color: #4caf50; }
-        .stat-label { font-size: 0.7rem; color: #666; }
-        body.dark-mode .stat-label { color: rgba(255,255,255,0.5); }
-        
+
+        body.dark-mode .stat-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(76,175,80,0.4);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2e7d32;
+        }
+
+        body.dark-mode .stat-number {
+            background: linear-gradient(135deg, #4caf50, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+        body.dark-mode .stat-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* أزرار التبويب 3D */
         .tabs {
             display: flex;
             justify-content: center;
             gap: 1rem;
             flex-wrap: wrap;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
         }
+
         .tab-btn {
             background: white;
             border: 1px solid #e0e0e0;
-            padding: 0.7rem 2rem;
+            padding: 0.8rem 2rem;
             font-size: 1rem;
             font-weight: 700;
             border-radius: 60px;
             cursor: pointer;
             color: #333;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
+
         body.dark-mode .tab-btn {
             background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
             color: rgba(255,255,255,0.8);
         }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76,175,80,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab-btn:hover::before {
+            left: 100%;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .tab-btn:hover {
+            border-color: rgba(76,175,80,0.4);
+            color: white;
+        }
+
         .tab-btn.active {
             background: #111;
             color: white;
             border-color: #111;
         }
+
         body.dark-mode .tab-btn.active {
             background: linear-gradient(135deg, #2e7d32, #1a5a1e);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 10px 25px rgba(46,125,50,0.3);
         }
-        
-        .tab-content { display: none; }
-        .tab-content.active-content { display: block; }
-        
+
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-content.active-content {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* بطاقات 3D */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
         }
+
         .app-card {
             background: white;
-            border-radius: 30px;
-            padding: 1.2rem;
-            transition: all 0.3s;
+            border-radius: 35px;
+            padding: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 15px 35px -15px rgba(0,0,0,0.1);
             border: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
         }
+
         body.dark-mode .app-card {
             background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.08);
         }
-        .app-card:hover { transform: translateY(-5px); }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2e7d32, #4caf50, #a78bfa);
+            transform: scaleX(0);
+            transition: transform 0.5s;
+        }
+
+        .app-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.15);
+        }
+
+        body.dark-mode .app-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 30px 50px -20px rgba(0,0,0,0.5);
+        }
+
         .card-img {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
-            border-radius: 20px;
+            border-radius: 25px;
             background: #f0f0f0;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
+            transition: transform 0.4s;
         }
-        body.dark-mode .card-img { background: #1a1a2e; }
-        .card-title { font-size: 1.3rem; font-weight: 800; color: #111; }
-        body.dark-mode .card-title { color: white; }
-        .card-desc { color: #666; font-size: 0.8rem; margin: 0.5rem 0; }
-        body.dark-mode .card-desc { color: rgba(255,255,255,0.6); }
-        
+
+        body.dark-mode .card-img {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .app-card:hover .card-img {
+            transform: scale(1.03);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 0.3rem;
+        }
+
+        body.dark-mode .card-title {
+            background: linear-gradient(135deg, #fff, #c4b5fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-desc {
+            color: #666;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        body.dark-mode .card-desc {
+            color: rgba(255,255,255,0.6);
+        }
+
         .platform-badge {
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 30px;
             font-size: 0.65rem;
             background: #e8f5e9;
             color: #2e7d32;
             margin-bottom: 0.8rem;
+            border: 1px solid #c8e6c9;
         }
+
         body.dark-mode .platform-badge {
             background: rgba(61,220,132,0.15);
             color: #3ddc84;
+            border: 1px solid rgba(61,220,132,0.2);
         }
-        
+
         .download-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             background: #111;
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             width: fit-content;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
+
         body.dark-mode .download-btn {
             background: linear-gradient(135deg, #2e7d32, #1a5a1e);
         }
-        .download-btn:hover { gap: 12px; background: #2e7d32; }
-        
-        .admin-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #111;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            z-index: 100;
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
-        body.dark-mode .admin-btn { background: rgba(0,0,0,0.6); }
-        .admin-btn:hover { background: #2e7d32; }
-        
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            gap: 12px;
+            transform: scale(1.02);
+            background: #2e7d32;
+        }
+
+        /* زر الوضع الداكن */
         .theme-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             background: #111;
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 700;
             z-index: 100;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        body.dark-mode .theme-btn { background: rgba(0,0,0,0.6); }
-        .theme-btn:hover { background: #2e7d32; }
-        
+
+        body.dark-mode .theme-btn {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .theme-btn:hover {
+            background: #2e7d32;
+            transform: scale(1.05);
+        }
+
         .empty-message {
             text-align: center;
             padding: 2rem;
             background: white;
-            border-radius: 25px;
+            border-radius: 30px;
             color: #999;
             border: 1px solid #eee;
             grid-column: 1 / -1;
         }
+
         body.dark-mode .empty-message {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
             color: rgba(255,255,255,0.5);
         }
-        
+
         .footer {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
             color: #999;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
-        body.dark-mode .footer { color: rgba(255,255,255,0.3); }
-        
+
+        body.dark-mode .footer {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+        }
+
         .toast {
             position: fixed;
-            bottom: 80px;
-            right: 20px;
+            bottom: 100px;
+            right: 30px;
             background: #111;
             color: white;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             z-index: 1000;
+            animation: slideIn 0.3s;
         }
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+
+        body.dark-mode .toast {
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(76,175,80,0.3);
         }
-        .login-card {
-            background: white;
-            border-radius: 35px;
-            padding: 1.5rem;
-            text-align: center;
-            max-width: 280px;
-            width: 90%;
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        body.dark-mode .login-card { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.1); }
-        .login-card input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 50px;
-            margin: 0.8rem 0;
-        }
-        @media (max-width: 600px) {
-            body { padding: 1rem; }
-            .hero h1 { font-size: 1.8rem; }
+
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .hero h1 { font-size: 2rem; }
+            .za-logo-3d { width: 55px; height: 55px; }
+            .tab-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
+            .cards-grid { gap: 1rem; }
         }
     </style>
 </head>
 <body>
 
+<div class="particles" id="particles"></div>
+
 <div class="container">
     <div class="hero">
-        <svg class="za-logo-3d" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="40,40 160,40 160,65 80,135 160,135 160,160 40,160 40,135 120,65 40,65" fill="#2e7d32"/>
-            <polygon points="100,55 130,135 70,135" fill="#ffffff" opacity="0.85"/>
-        </svg>
-        <h1>Zaki Apps</h1>
+        <div class="logo-3d">
+            <svg class="za-logo-3d" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <polygon points="40,40 160,40 160,65 80,135 160,135 160,160 40,160 40,135 120,65 40,65" fill="url(#grad1)"/>
+                <polygon points="100,55 130,135 70,135" fill="url(#grad2)" opacity="0.85"/>
+                <polygon points="100,55 115,100 85,100" fill="white" opacity="0.25"/>
+            </svg>
+            <h1>Zaki Apps</h1>
+        </div>
+        <p>منصة ثلاثية الأبعاد | تحميل التطبيقات والألعاب</p>
+        
         <div class="stats">
             <div class="stat-card"><div class="stat-number" id="appsCount">0</div><div class="stat-label">تطبيق</div></div>
             <div class="stat-card"><div class="stat-number" id="gamesCount">0</div><div class="stat-label">لعبة</div></div>
@@ -298,7 +563,6 @@
     <div class="tabs">
         <button class="tab-btn active" data-tab="apps">📱 تطبيقات</button>
         <button class="tab-btn" data-tab="games">🎮 ألعاب</button>
-        <button class="tab-btn" data-tab="admin">⚙️ إدارة</button>
     </div>
 
     <div id="apps" class="tab-content active-content">
@@ -309,53 +573,36 @@
         <div class="cards-grid" id="gamesContainer"></div>
     </div>
 
-    <div id="admin" class="tab-content">
-        <div class="admin-panel" id="adminPanel" style="display:none;">
-            <h3 style="color:#111; margin-bottom:1rem;">📝 تعليمات الإضافة</h3>
-            <p style="color:#555; margin-bottom:1rem;">لإضافة تطبيق، قم بتعديل ملف <strong>data.json</strong> الموجود في نفس مجلد الموقع على GitHub</p>
-            <p style="color:#555; font-size:0.85rem;">مثال:</p>
-            <pre style="background:#f0f0f0; padding:0.5rem; border-radius:10px; font-size:0.7rem; direction:ltr; text-align:left;">
-{
-    "apps": [
-        {
-            "title": "اسم التطبيق",
-            "desc": "وصف التطبيق",
-            "platform": "android",
-            "image": "رابط_الصورة",
-            "link": "رابط_التحميل"
-        }
-    ],
-    "games": []
-}
-            </pre>
-        </div>
+    <div class="footer">
+        <p>Zaki Apps | أضف تطبيقاتك في ملف data.json</p>
     </div>
-
-    <div class="footer"><p>Zaki Apps | أضف تطبيقاتك في ملف data.json</p></div>
 </div>
 
-<button class="admin-btn" id="adminBtn">🔐 دخول المدير</button>
 <button class="theme-btn" id="themeBtn">🌙 وضع داكن</button>
 
 <script>
-    let isAdmin = false;
+    // جسيمات متحركة
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for(let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 4 + 1;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = 10 + Math.random() * 20 + 's';
+            container.appendChild(particle);
+        }
+    }
+    createParticles();
+
     let appsData = [];
     let gamesData = [];
 
-    // بيانات تجريبية
-    const defaultData = {
-        apps: [
-            {
-                title: "تطبيق تجريبي",
-                desc: "هذا تطبيق تجريبي - قم بتعديل ملف data.json",
-                platform: "android",
-                image: "https://picsum.photos/id/104/300/150",
-                link: "#"
-            }
-        ],
-        games: []
-    };
-
+    // تحميل البيانات من data.json
     async function loadData() {
         try {
             const response = await fetch('data.json');
@@ -363,14 +610,23 @@
                 const data = await response.json();
                 appsData = data.apps || [];
                 gamesData = data.games || [];
+                console.log('✅ تم تحميل البيانات من data.json');
             } else {
-                appsData = defaultData.apps;
-                gamesData = defaultData.games;
+                console.log('⚠️ ملف data.json غير موجود');
+                appsData = [];
+                gamesData = [];
             }
         } catch(e) {
-            appsData = defaultData.apps;
-            gamesData = defaultData.games;
+            console.log('❌ خطأ في تحميل data.json');
+            appsData = [];
+            gamesData = [];
         }
+        
+        // إذا كان الموقع فارغ تماماً، عرض رسالة
+        if(appsData.length === 0 && gamesData.length === 0) {
+            console.log('📭 لا توجد تطبيقات أو ألعاب');
+        }
+        
         updateStats();
         renderApps();
         renderGames();
@@ -396,16 +652,16 @@
         const container = document.getElementById('appsContainer');
         if(!container) return;
         if(appsData.length === 0) {
-            container.innerHTML = '<div class="empty-message">📭 لا توجد تطبيقات<br>أضف تطبيقاتك في ملف data.json</div>';
+            container.innerHTML = '<div class="empty-message">📭 لا توجد تطبيقات<br>📁 أضف تطبيقاتك في ملف data.json</div>';
             return;
         }
         container.innerHTML = appsData.map(app => `
             <div class="app-card">
-                <img class="card-img" src="${app.image}" onerror="this.src='https://picsum.photos/id/20/300/150'">
+                <img class="card-img" src="${app.image}" onerror="this.src='https://picsum.photos/id/20/350/150'">
                 <div class="card-title">${escapeHtml(app.title)}</div>
                 <div class="card-desc">${escapeHtml(app.desc)}</div>
                 ${getBadge(app.platform)}
-                <a href="${app.link}" class="download-btn" download><i class="fas fa-download"></i> تحميل</a>
+                <a href="${app.link}" class="download-btn" download><i class="fas fa-download"></i> تحميل مباشر</a>
             </div>
         `).join('');
     }
@@ -414,16 +670,16 @@
         const container = document.getElementById('gamesContainer');
         if(!container) return;
         if(gamesData.length === 0) {
-            container.innerHTML = '<div class="empty-message">🎮 لا توجد ألعاب<br>أضف ألعابك في ملف data.json</div>';
+            container.innerHTML = '<div class="empty-message">🎮 لا توجد ألعاب<br>📁 أضف ألعابك في ملف data.json</div>';
             return;
         }
         container.innerHTML = gamesData.map(game => `
             <div class="app-card">
-                <img class="card-img" src="${game.image}" onerror="this.src='https://picsum.photos/id/20/300/150'">
+                <img class="card-img" src="${game.image}" onerror="this.src='https://picsum.photos/id/20/350/150'">
                 <div class="card-title">${escapeHtml(game.title)}</div>
                 <div class="card-desc">${escapeHtml(game.desc)}</div>
                 ${getBadge(game.platform)}
-                <a href="${game.link}" class="download-btn" download><i class="fas fa-download"></i> تحميل</a>
+                <a href="${game.link}" class="download-btn" download><i class="fas fa-download"></i> تحميل مباشر</a>
             </div>
         `).join('');
     }
@@ -448,53 +704,34 @@
         });
     }
 
-    function showLogin() {
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.innerHTML = `
-            <div class="login-card">
-                <i class="fas fa-lock" style="font-size:2rem; color:#2e7d32;"></i>
-                <h3>دخول المدير</h3>
-                <input type="password" id="passInput" placeholder="كلمة المرور">
-                <button id="confirmBtn" style="background:#2e7d32; color:white; border:none; padding:8px; border-radius:50px; width:100%; cursor:pointer;">تأكيد</button>
-                <p id="errorMsg" style="color:#f44336; margin-top:5px;"></p>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        document.getElementById('confirmBtn').onclick = () => {
-            if(document.getElementById('passInput').value === 'admen') {
-                isAdmin = true;
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('adminBtn').style.background = '#2e7d32';
-                document.getElementById('adminBtn').innerHTML = '✅ المدير نشط';
-                modal.remove();
-                showToast('مرحباً مدير');
-            } else {
-                document.getElementById('errorMsg').innerText = '❌ كلمة المرور غير صحيحة';
-            }
-        };
-    }
-
     function initTheme() {
         const savedTheme = localStorage.getItem('zaki_theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
             document.getElementById('themeBtn').innerHTML = '☀️ وضع فاتح';
+        } else {
+            document.body.classList.remove('dark-mode');
+            document.getElementById('themeBtn').innerHTML = '🌙 وضع داكن';
         }
     }
 
     function toggleTheme() {
         const isDark = document.body.classList.toggle('dark-mode');
         localStorage.setItem('zaki_theme', isDark ? 'dark' : 'light');
-        document.getElementById('themeBtn').innerHTML = isDark ? '☀️ وضع فاتح' : '🌙 وضع داكن';
+        if (isDark) {
+            document.getElementById('themeBtn').innerHTML = '☀️ وضع فاتح';
+            showToast('🌙 تم التبديل إلى الوضع الداكن');
+        } else {
+            document.getElementById('themeBtn').innerHTML = '🌙 وضع داكن';
+            showToast('☀️ تم التبديل إلى الوضع الساطع');
+        }
     }
 
     document.getElementById('themeBtn').onclick = toggleTheme;
-    document.getElementById('adminBtn').onclick = showLogin;
     
-    initTheme();
-    initTabs();
     loadData();
+    initTabs();
+    initTheme();
 </script>
 </body>
 </html>
