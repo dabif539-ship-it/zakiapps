@@ -1,8 +1,8 @@
 {
     "apps": [
         {
-            "title": "bochra songs 🎀",
-            "desc": "تطبيق bochra songs - أغاني وموسيقى",
+            "title": "bochra songs",
+            "desc": "تطبيق bochra songs",
             "platform": "android",
             "image": "https://raw.githubusercontent.com/dabif539-ship-it/zakiapps/refs/heads/main/apps/bs/icon.png",
             "link": "https://raw.githubusercontent.com/dabif539-ship-it/zakiapps/refs/heads/main/apps/bs/apps.apk"
